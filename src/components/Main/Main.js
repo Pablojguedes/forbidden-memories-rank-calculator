@@ -105,7 +105,7 @@ const Main = () => {
           );
         })}
         <fieldset id="winning-type-container">
-          <legend>Escolha o tipo de vitória</legend>
+          <legend>Tipo de vitória</legend>
           <input
             type="radio"
             id="anih-radio"
