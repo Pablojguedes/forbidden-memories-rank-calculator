@@ -1,5 +1,5 @@
 import "./Main.css";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import ValueCard from "../ValueCard/ValueCard";
 import { PARAMETERS } from "../../constants/parameters";
@@ -9,10 +9,11 @@ const Main = () => {
   const [parametersList, setParametersList] = useState(PARAMETERS);
   const [rankValue, setRankValue] = useState(100);
   const [rankDef, setRankDef] = useState("");
+  const [winningType, setWinningType] = useState("annihilation");
 
   useEffect(() => {
     setRankValue(calculateRankValue(parametersList));
-  }, [parametersList]);
+  }, [parametersList, winningType]);
 
   useEffect(() => {
     setRankDef(defineRank(rankValue));
@@ -57,6 +58,11 @@ const Main = () => {
     setParametersList(updatedParamsList);
   };
 
+  const onRadioChange = (event) => {
+    console.log(event.target.value);
+    setWinningType(event.target.value);
+  };
+
   const calculateRankValue = (parameters) => {
     const body = {
       turns: parameters[0].value,
@@ -69,12 +75,14 @@ const Main = () => {
       triggeredTraps: parameters[7].value,
       usedCards: parameters[8].value,
       remainingLPs: parameters[9].value,
+      winningType: winningType,
     };
     return calculateRank(body);
   };
 
   const onResetHandler = () => {
     setParametersList(PARAMETERS);
+    setWinningType("annihilation");
   };
 
   const defineRank = (value) => {
@@ -96,6 +104,36 @@ const Main = () => {
             />
           );
         })}
+        <fieldset id="winning-type-container">
+          <legend>Escolha o tipo de vitória</legend>
+          <input
+            type="radio"
+            id="anih-radio"
+            name="winning-type"
+            value="annihilation"
+            onChange={onRadioChange}
+            checked={winningType === "annihilation" ? true : false}
+          />
+          <label htmlFor="anih-radio">Annihilation</label>
+          <input
+            type="radio"
+            id="deck-radio"
+            name="winning-type"
+            value="deck"
+            onChange={onRadioChange}
+            checked={winningType === "deck" ? true : false}
+          />
+          <label htmlFor="deck-radio">Deck</label>
+          <input
+            type="radio"
+            id="exodia-radio"
+            name="winning-type"
+            value="exodia"
+            onChange={onRadioChange}
+            checked={winningType === "exodia" ? true : false}
+          />
+          <label htmlFor="exodia-radio">Exodia</label>
+        </fieldset>
         <div id="rank-value-div">
           <span>Pontos: {rankValue}</span>
           <span>
@@ -114,7 +152,7 @@ const Main = () => {
             </span>
           </span>
         </div>
-        <input type="button" value="Resetar" onClick={onResetHandler}/>
+        <input type="button" value="Resetar" onClick={onResetHandler} />
       </div>
     </div>
   );

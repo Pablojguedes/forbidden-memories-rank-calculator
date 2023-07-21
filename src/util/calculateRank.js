@@ -9,6 +9,7 @@ export const calculateRank = ({
   triggeredTraps,
   usedCards,
   remainingLPs,
+  winningType,
 }) => {
   const BASE_POINTS = 50;
 
@@ -23,7 +24,8 @@ export const calculateRank = ({
     pureMagicPoints(pureMagics) +
     triggeredTrapPoints(triggeredTraps) +
     usedCardPoints(usedCards) +
-    remainingLPPoints(remainingLPs)
+    remainingLPPoints(remainingLPs) +
+    winningTypePoints(winningType)
   );
 };
 
@@ -99,3 +101,9 @@ const remainingLPPoints = (remainingLPs) => {
   if (remainingLPs < 8000) return 4;
   return 6;
 };
+
+const winningTypePoints = (winningType) => {
+  if(winningType === "annihilation") return 2;
+  if(winningType === "deck") return -40;
+  return 40;
+}

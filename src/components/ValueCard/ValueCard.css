@@ -28,8 +28,8 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.5vw;
-    height: 2.5vw;
+    max-width: 2.5vw;
+    max-height: 2.5vw;
     font-size: 0.75rem;
     background-color: #cecece;
     cursor: pointer;
