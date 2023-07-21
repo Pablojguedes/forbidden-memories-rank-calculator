@@ -1,0 +1,50 @@
+div#card-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    padding: 0rem 0.25rem 0.25rem 0.25rem;
+    margin: 0rem 0rem 0.25rem 0;
+    border: #0a0a0a 1px solid;
+}
+
+div#card-div:last-of-type {
+    margin: 0;
+}
+
+h6#card-title {
+    padding: 0 0 1em 0;
+    margin: 0;
+    font-size: 0.75rem;
+}
+div#value-container-div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5vw;
+    height: 2.5vw;
+    font-size: 0.75rem;
+    background-color: #cecece;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f2f2f2;
+}
+
+h6#value-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+input#value-text {
+    text-align: center;
+}

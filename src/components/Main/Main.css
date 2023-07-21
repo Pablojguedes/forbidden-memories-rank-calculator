@@ -1,0 +1,57 @@
+div#main-div {
+  background-image: url(../../assets/background.png);
+  width: 100vw;
+  height: 100vh;
+  background-size: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div#values-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 0;
+  width: 300px;
+  padding: 0.65rem;
+  border: 2px #df2a53 solid;
+  border-radius: 1rem;
+  background-color: rgb(231, 228, 228);
+  opacity: 80%;
+}
+
+div#rank-value-div {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  justify-content: center;
+  gap: 10%;
+  margin-top: 1em 0 0 0;
+  font-size: 0.9rem;
+}
+
+span.rank-span {
+  font-weight: 600;
+}
+
+span#red-span {
+  color: #880101;
+}
+span#green-span {
+  color: #3bb371;
+}
+span#blue-span {
+  color: #75a4c5;
+}
+
+[type="button"] {
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  background-color: #cecece;
+  cursor: pointer;
+}
+
+[type="button"]:hover {
+  background-color: #f2f2f2;
+}
