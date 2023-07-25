@@ -47,8 +47,7 @@ export const PARAMETERS = [
     label: "Armadilhas Disparadas",
     value: 0,
     type: "label",
-    tooltipText:
-      "Número de armadilhas ativadas pelo jogador.",
+    tooltipText: "Número de armadilhas ativadas pelo jogador.",
   },
   {
     label: "Cartas Restantes",

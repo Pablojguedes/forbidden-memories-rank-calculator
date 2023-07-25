@@ -18,7 +18,7 @@ div#values-div {
   border: 2px #df2a53 solid;
   border-radius: 1rem;
   background-color: rgb(231, 228, 228);
-  opacity: 80%;
+  opacity: 85%;
 }
 
 fieldset#winning-type-container {
@@ -62,6 +62,12 @@ span#green-span {
 }
 span#blue-span {
   color: #75a4c5;
+}
+
+div#buttons-container {
+  display: flex;
+  gap: 5%;
+  justify-content: center;
 }
 
 [type="button"] {

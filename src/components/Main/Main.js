@@ -63,6 +63,41 @@ const Main = () => {
     setWinningType(event.target.value);
   };
 
+  const setTurnsAndCardsUsed = (
+    firstParameter,
+    secondParameter,
+    firstValue,
+    secondValue
+  ) => {
+    const firstAlteredElement = {
+      label: firstParameter,
+      value: firstValue,
+      type: "input",
+    };
+    const secondAlteredElement = {
+      label: secondParameter,
+      value: secondValue,
+      type: "input",
+    };
+
+    const updatedParamsList = parametersList.map((parameter) => {
+      if (parameter.label === firstAlteredElement.label) {
+        return firstAlteredElement;
+      }
+      if (parameter.label === secondAlteredElement.label) {
+        return secondAlteredElement;
+      }
+
+      return parameter;
+    });
+
+    setParametersList(updatedParamsList);
+  };
+
+  const onTurnsAndCardsUsedUpdate = () => {
+    setTurnsAndCardsUsed("Turnos", "Cartas Restantes", 10, 20);
+  };
+
   const calculateRankValue = (parameters) => {
     const body = {
       turns: parameters[0].value,
@@ -152,7 +187,14 @@ const Main = () => {
             </span>
           </span>
         </div>
-        <input type="button" value="Resetar" onClick={onResetHandler} />
+        <div id="buttons-container">
+          <input
+            type="button"
+            value="Alterar T&C"
+            onClick={onTurnsAndCardsUsedUpdate}
+          />
+          <input type="button" value="Resetar" onClick={onResetHandler} />
+        </div>
       </div>
     </div>
   );
