@@ -4,49 +4,42 @@ import ValueCard from "../ValueCard/ValueCard";
 import { PARAMETERS } from "../../constants/parameters";
 import { calculateRank } from "../../util/calculateRank";
 
+const updateParameterInList = (parametersList, updatedElement) => {
+  return parametersList.map((parameter) =>
+    parameter.label === updatedElement.label ? updatedElement : parameter
+  );
+};
+
 const Main = () => {
   const [parametersList, setParametersList] = useState(PARAMETERS);
   const [winningType, setWinningType] = useState("annihilation");
+  const [englishMode, setEnglishMode] = useState(false);
 
   const { points, grade } = calculateRank(parametersList, winningType);
 
   const onIncreaseOrDecrease = (parameter, increaseOrDecrease) => {
-    const alteredElement = {
-      label: parameter.label,
+    const updatedElement = {
+      ...parameter,
       value:
         increaseOrDecrease === "decrease"
-          ? parameter.value > 0
-            ? parameter.value - 1
-            : 0
+          ? Math.max(0, parameter.value - 1)
           : parameter.value + 1,
-      type: parameter.type,
     };
 
-    const updatedParamsList = parametersList.map((parameter) => {
-      if (parameter.label === alteredElement.label) {
-        return alteredElement;
-      }
-      return parameter;
-    });
-
-    setParametersList(updatedParamsList);
+    setParametersList((prevList) =>
+      updateParameterInList(prevList, updatedElement)
+    );
   };
 
   const onValueChange = (event, parameter) => {
-    const changedElement = {
-      label: parameter.label,
+    const updatedElement = {
+      ...parameter,
       value: event.target.value,
-      type: parameter.type,
     };
 
-    const updatedParamsList = parametersList.map((parameter) => {
-      if (parameter.label === changedElement.label) {
-        return changedElement;
-      }
-      return parameter;
-    });
-
-    setParametersList(updatedParamsList);
+    setParametersList((prevList) =>
+      updateParameterInList(prevList, updatedElement)
+    );
   };
 
   const onRadioChange = (event) => {
