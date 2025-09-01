@@ -1,8 +1,10 @@
 import "./Main.css";
 import { useState } from "react";
 import ValueCard from "../ValueCard/ValueCard";
-import { PARAMETERS } from "../../constants/parameters";
 import { calculateRank } from "../../util/calculateRank";
+import RadioInput from "../RadioInput/RadioInput";
+import { WINNING_CONDITIONS } from "../../constants/winningConditions";
+import { PARAMETERS } from "../../constants/parameters";
 
 const updateParameterInList = (parametersList, updatedElement) => {
   return parametersList.map((parameter) =>
@@ -46,39 +48,18 @@ const Main = () => {
     setWinningType(event.target.value);
   };
 
-  const setTurnsAndCardsUsed = (
-    firstParameter,
-    secondParameter,
-    firstValue,
-    secondValue
-  ) => {
-    const firstAlteredElement = {
-      label: firstParameter,
-      value: firstValue,
-      type: "input",
-    };
-    const secondAlteredElement = {
-      label: secondParameter,
-      value: secondValue,
-      type: "input",
-    };
-
-    const updatedParamsList = parametersList.map((parameter) => {
-      if (parameter.label === firstAlteredElement.label) {
-        return firstAlteredElement;
-      }
-      if (parameter.label === secondAlteredElement.label) {
-        return secondAlteredElement;
-      }
-
-      return parameter;
-    });
-
-    setParametersList(updatedParamsList);
-  };
-
-  const onTurnsAndCardsUsedUpdate = () => {
-    setTurnsAndCardsUsed("Turnos", "Cartas Restantes", 10, 20);
+  const setTurnsAndCardsUsed = () => {
+    setParametersList((prevList) =>
+      prevList.map((parameter) => {
+        if (parameter.label === "Turnos") {
+          return { ...parameter, value: 10 };
+        }
+        if (parameter.label === "Cartas Restantes") {
+          return { ...parameter, value: 20 };
+        }
+        return parameter;
+      })
+    );
   };
 
   const onResetHandler = () => {
@@ -89,7 +70,7 @@ const Main = () => {
   return (
     <div id="main-div">
       <div id="values-div">
-        {parametersList?.map((parameter) => {
+        {parametersList.map((parameter) => {
           return (
             <ValueCard
               key={parameter.label}
@@ -102,33 +83,14 @@ const Main = () => {
         })}
         <fieldset id="winning-type-container">
           <legend>Tipo de vitória</legend>
-          <input
-            type="radio"
-            id="anih-radio"
-            name="winning-type"
-            value="annihilation"
-            onChange={onRadioChange}
-            checked={winningType === "annihilation" ? true : false}
-          />
-          <label htmlFor="anih-radio">Annihilation</label>
-          <input
-            type="radio"
-            id="deck-radio"
-            name="winning-type"
-            value="deck"
-            onChange={onRadioChange}
-            checked={winningType === "deck" ? true : false}
-          />
-          <label htmlFor="deck-radio">Deck</label>
-          <input
-            type="radio"
-            id="exodia-radio"
-            name="winning-type"
-            value="exodia"
-            onChange={onRadioChange}
-            checked={winningType === "exodia" ? true : false}
-          />
-          <label htmlFor="exodia-radio">Exodia</label>
+          {WINNING_CONDITIONS.map((condition) => (
+            <RadioInput
+              key={condition}
+              conditionName={condition}
+              winningType={winningType}
+              onRadioChange={onRadioChange}
+            />
+          ))}
         </fieldset>
         <div id="rank-value-div">
           <span>Pontos: {points}</span>
@@ -152,7 +114,7 @@ const Main = () => {
           <input
             type="button"
             value="Alterar T&C"
-            onClick={onTurnsAndCardsUsedUpdate}
+            onClick={setTurnsAndCardsUsed}
           />
           <input type="button" value="Resetar" onClick={onResetHandler} />
         </div>

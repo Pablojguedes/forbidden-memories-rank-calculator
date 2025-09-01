@@ -34,10 +34,6 @@ fieldset#winning-type-container {
         font-size: 0.8rem;
         font-weight: 600;
     }
-
-    >label {
-        font-size: 0.9rem;
-    }
 }
 
 div#rank-value-div {
