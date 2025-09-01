@@ -59,8 +59,6 @@ export const PARAMETERS = [
   },
   {
     label: "Armadilhas Disparadas",
-    engLabel: "Turns",
-    engTooltipText: "Turns duration of the duel",
     value: 0,
     type: "label",
     tooltipText: "Número de armadilhas ativadas pelo jogador.",
