@@ -1,27 +1,14 @@
 import "./Main.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ValueCard from "../ValueCard/ValueCard";
 import { PARAMETERS } from "../../constants/parameters";
 import { calculateRank } from "../../util/calculateRank";
 
 const Main = () => {
   const [parametersList, setParametersList] = useState(PARAMETERS);
-  const [rankDefinitions, setRankDefinitions] = useState({
-    points: 100,
-    grade: "",
-  });
   const [winningType, setWinningType] = useState("annihilation");
 
-  useEffect(() => {
-    setRankDefinitions((prevDefinitions) => {
-      const { points, grade } = calculateRank(parametersList, winningType);
-      return {
-        ...prevDefinitions,
-        points,
-        grade,
-      };
-    });
-  }, [parametersList, winningType]);
+  const { points, grade } = calculateRank(parametersList, winningType);
 
   const onIncreaseOrDecrease = (parameter, increaseOrDecrease) => {
     const alteredElement = {
@@ -151,20 +138,20 @@ const Main = () => {
           <label htmlFor="exodia-radio">Exodia</label>
         </fieldset>
         <div id="rank-value-div">
-          <span>Pontos: {rankDefinitions.points}</span>
+          <span>Pontos: {points}</span>
           <span>
             Rank:{" "}
             <span
               className="rank-span"
               id={
-                rankDefinitions.points > 79
+                points > 79
                   ? "red-span"
-                  : rankDefinitions.points > 19
+                  : points > 19
                   ? "green-span"
                   : "blue-span"
               }
             >
-              {rankDefinitions.grade}
+              {grade}
             </span>
           </span>
         </div>
