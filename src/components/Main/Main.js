@@ -5,6 +5,7 @@ import { calculateRank } from "../../util/calculateRank";
 import RadioInput from "../RadioInput/RadioInput";
 import { WINNING_CONDITIONS } from "../../constants/winningConditions";
 import { PARAMETERS } from "../../constants/parameters";
+import { BiWorld } from "react-icons/bi";
 
 const updateParameterInList = (parametersList, updatedElement) => {
   return parametersList.map((parameter) =>
@@ -15,7 +16,7 @@ const updateParameterInList = (parametersList, updatedElement) => {
 const Main = () => {
   const [parametersList, setParametersList] = useState(PARAMETERS);
   const [winningType, setWinningType] = useState("annihilation");
-  const [englishMode, setEnglishMode] = useState(false);
+  const [englishMode, setEnglishMode] = useState(true);
 
   const { points, grade } = calculateRank(parametersList, winningType);
 
@@ -69,6 +70,13 @@ const Main = () => {
 
   return (
     <div id="main-div">
+      <div
+        id="language-div"
+        onClick={() => setEnglishMode((curMode) => !curMode)}
+      >
+        <BiWorld />
+        <label>{englishMode ? "PT" : "EN"}</label>
+      </div>
       <div id="values-div">
         {parametersList.map((parameter) => {
           return (
@@ -76,13 +84,15 @@ const Main = () => {
               key={parameter.label}
               parameter={parameter}
               onValueChange={onValueChange}
-              onDecrease={onIncreaseOrDecrease}
-              onIncrease={onIncreaseOrDecrease}
+              onIncreaseOrDecrease={onIncreaseOrDecrease}
+              englishMode={englishMode}
             />
           );
         })}
         <fieldset id="winning-type-container">
-          <legend>Tipo de vitória</legend>
+          <legend>
+            {englishMode ? "Winning Condition" : "Tipo de vitória"}
+          </legend>
           {WINNING_CONDITIONS.map((condition) => (
             <RadioInput
               key={condition}
@@ -113,10 +123,19 @@ const Main = () => {
         <div id="buttons-container">
           <input
             type="button"
-            value="Alterar T&C"
+            value={englishMode ? "Update T&C" : "Alterar T&C"}
             onClick={setTurnsAndCardsUsed}
+            title={
+              englishMode
+                ? "Set Turns to 10 and Remaining Cards to 20"
+                : "Altera Turnos para 10 e Cartar Restantes para 20"
+            }
           />
-          <input type="button" value="Resetar" onClick={onResetHandler} />
+          <input
+            type="button"
+            value={englishMode ? "Reset" : "Resetar"}
+            onClick={onResetHandler}
+          />
         </div>
       </div>
     </div>

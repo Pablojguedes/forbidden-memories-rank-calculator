@@ -1,15 +1,12 @@
 import "./ValueCard.css";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
-const ValueCard = ({ parameter, onDecrease, onIncrease, onValueChange }) => {
-  const increaseHandler = () => {
-    onIncrease(parameter, "increase");
-  };
-
-  const decreaseHandler = () => {
-    onDecrease(parameter, "decrease");
-  };
-
+const ValueCard = ({
+  parameter,
+  onIncreaseOrDecrease,
+  onValueChange,
+  englishMode = false,
+}) => {
   const valueChangeHandler = (event) => {
     onValueChange(event, parameter);
   };
@@ -17,14 +14,20 @@ const ValueCard = ({ parameter, onDecrease, onIncrease, onValueChange }) => {
   return (
     <div id="card-div">
       <div id="title-tooltip-container">
-        <h6 id="card-title">{parameter.label}</h6>
+        <h6 id="card-title">
+          {englishMode ? parameter.engLabel : parameter.label}
+        </h6>
         <div id="tooltip-holder">
           <AiOutlineInfoCircle size={12} fontWeight={500} />
-          <span className="tooltip-text">{parameter.tooltipText}</span>
+          <span className="tooltip-text">
+            {englishMode ? parameter.engTooltipText : parameter.tooltipText}
+          </span>
         </div>
       </div>
       <div id="value-container-div">
-        <button onClick={decreaseHandler}>-</button>
+        <button onClick={() => onIncreaseOrDecrease(parameter, "decrease")}>
+          -
+        </button>
         {parameter.type === "label" ? (
           <h6 id="value-text">{parameter.value}</h6>
         ) : (
@@ -35,7 +38,9 @@ const ValueCard = ({ parameter, onDecrease, onIncrease, onValueChange }) => {
             onChange={valueChangeHandler}
           />
         )}
-        <button onClick={increaseHandler}>+</button>
+        <button onClick={() => onIncreaseOrDecrease(parameter, "increase")}>
+          +
+        </button>
       </div>
     </div>
   );

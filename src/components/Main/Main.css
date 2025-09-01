@@ -1,11 +1,37 @@
 div#main-div {
   background-image: url(../../assets/background.png);
   width: 100vw;
-  height: 100vh;
+  max-height: 100svh;
   background-size: 55%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+
+div#language-div {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #f7f4de;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  @media (max-width: 600px) {
+    z-index: 1;
+    color: #d3a944;
+  }
 }
 
 div#values-div {
@@ -19,21 +45,22 @@ div#values-div {
   border-radius: 1rem;
   background-color: rgb(231, 228, 228);
   opacity: 85%;
+  max-height: 100%;
 }
 
 fieldset#winning-type-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-    border: 1px solid #0a0a0a;
-    padding: 0.5rem 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  border: 1px solid #0a0a0a;
+  padding: 0.5rem 0.5rem 0.75rem;
 
-    >legend {
-        font-size: 0.8rem;
-        font-weight: 600;
-    }
+  > legend {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
 }
 
 div#rank-value-div {
