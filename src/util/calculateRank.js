@@ -96,7 +96,7 @@ const usedCardPoints = (remainingCards) => {
 };
 const remainingLPPoints = (remainingLPs) => {
   if (remainingLPs < 100) return -7;
-  if (remainingLPs < 100) return -5;
+  if (remainingLPs < 1000) return -5;
   if (remainingLPs < 7000) return 0;
   if (remainingLPs < 8000) return 4;
   return 6;

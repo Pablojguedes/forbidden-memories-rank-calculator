@@ -1,23 +1,50 @@
 import "./Main.css";
 import { useEffect, useState } from "react";
-import React from "react";
 import ValueCard from "../ValueCard/ValueCard";
 import { PARAMETERS } from "../../constants/parameters";
 import { calculateRank } from "../../util/calculateRank";
 
+const calculateRankValue = (parameters, winningType) => {
+  const body = {
+    turns: parameters[0].value,
+    effectiveAttacks: parameters[1].value,
+    defensiveVictories: parameters[2].value,
+    faceDownPlays: parameters[3].value,
+    fusions: parameters[4].value,
+    equips: parameters[5].value,
+    pureMagics: parameters[6].value,
+    triggeredTraps: parameters[7].value,
+    usedCards: parameters[8].value,
+    remainingLPs: parameters[9].value,
+    winningType,
+  };
+  return calculateRank(body);
+};
+
+const calculateGrade = (value) => {
+  if (value > 79) return "S - A Pow";
+  if (value > 19) return "B - C - D Pow/Tec";
+  return "S - A Tec";
+};
+
 const Main = () => {
   const [parametersList, setParametersList] = useState(PARAMETERS);
-  const [rankValue, setRankValue] = useState(100);
-  const [rankDef, setRankDef] = useState("");
+  const [rankDefinitions, setRankDefinitions] = useState({
+    points: 100,
+    grade: "",
+  });
   const [winningType, setWinningType] = useState("annihilation");
 
   useEffect(() => {
-    setRankValue(calculateRankValue(parametersList));
+    setRankDefinitions((prevDefinitions) => {
+      const points = calculateRankValue(parametersList, winningType);
+      return {
+        ...prevDefinitions,
+        points,
+        grade: calculateGrade(points),
+      };
+    });
   }, [parametersList, winningType]);
-
-  useEffect(() => {
-    setRankDef(defineRank(rankValue));
-  }, [rankValue]);
 
   const onIncreaseOrDecrease = (parameter, increaseOrDecrease) => {
     const alteredElement = {
@@ -98,32 +125,9 @@ const Main = () => {
     setTurnsAndCardsUsed("Turnos", "Cartas Restantes", 10, 20);
   };
 
-  const calculateRankValue = (parameters) => {
-    const body = {
-      turns: parameters[0].value,
-      effectiveAttacks: parameters[1].value,
-      defensiveVictories: parameters[2].value,
-      faceDownPlays: parameters[3].value,
-      fusions: parameters[4].value,
-      equips: parameters[5].value,
-      pureMagics: parameters[6].value,
-      triggeredTraps: parameters[7].value,
-      usedCards: parameters[8].value,
-      remainingLPs: parameters[9].value,
-      winningType: winningType,
-    };
-    return calculateRank(body);
-  };
-
   const onResetHandler = () => {
     setParametersList(PARAMETERS);
     setWinningType("annihilation");
-  };
-
-  const defineRank = (value) => {
-    if (value > 79) return "S - A Pow";
-    if (value > 19) return "B - C - D Pow/Tec";
-    return "S - A Tec";
   };
 
   return (
@@ -170,20 +174,20 @@ const Main = () => {
           <label htmlFor="exodia-radio">Exodia</label>
         </fieldset>
         <div id="rank-value-div">
-          <span>Pontos: {rankValue}</span>
+          <span>Pontos: {rankDefinitions.points}</span>
           <span>
             Rank:{" "}
             <span
               className="rank-span"
               id={
-                rankValue > 79
+                rankDefinitions.points > 79
                   ? "red-span"
-                  : rankValue > 19
+                  : rankDefinitions.points > 19
                   ? "green-span"
                   : "blue-span"
               }
             >
-              {rankDef}
+              {rankDefinitions.grade}
             </span>
           </span>
         </div>

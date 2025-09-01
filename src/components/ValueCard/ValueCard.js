@@ -1,5 +1,4 @@
 import "./ValueCard.css";
-import React from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const ValueCard = ({ parameter, onDecrease, onIncrease, onValueChange }) => {
@@ -30,7 +29,7 @@ const ValueCard = ({ parameter, onDecrease, onIncrease, onValueChange }) => {
           <h6 id="value-text">{parameter.value}</h6>
         ) : (
           <input
-            type="input"
+            type="number"
             id="value-text"
             value={parameter.value}
             onChange={valueChangeHandler}
