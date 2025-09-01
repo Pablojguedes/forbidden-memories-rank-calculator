@@ -4,29 +4,6 @@ import ValueCard from "../ValueCard/ValueCard";
 import { PARAMETERS } from "../../constants/parameters";
 import { calculateRank } from "../../util/calculateRank";
 
-const calculateRankValue = (parameters, winningType) => {
-  const body = {
-    turns: parameters[0].value,
-    effectiveAttacks: parameters[1].value,
-    defensiveVictories: parameters[2].value,
-    faceDownPlays: parameters[3].value,
-    fusions: parameters[4].value,
-    equips: parameters[5].value,
-    pureMagics: parameters[6].value,
-    triggeredTraps: parameters[7].value,
-    usedCards: parameters[8].value,
-    remainingLPs: parameters[9].value,
-    winningType,
-  };
-  return calculateRank(body);
-};
-
-const calculateGrade = (value) => {
-  if (value > 79) return "S - A Pow";
-  if (value > 19) return "B - C - D Pow/Tec";
-  return "S - A Tec";
-};
-
 const Main = () => {
   const [parametersList, setParametersList] = useState(PARAMETERS);
   const [rankDefinitions, setRankDefinitions] = useState({
@@ -37,11 +14,11 @@ const Main = () => {
 
   useEffect(() => {
     setRankDefinitions((prevDefinitions) => {
-      const points = calculateRankValue(parametersList, winningType);
+      const { points, grade } = calculateRank(parametersList, winningType);
       return {
         ...prevDefinitions,
         points,
-        grade: calculateGrade(points),
+        grade,
       };
     });
   }, [parametersList, winningType]);
@@ -86,7 +63,6 @@ const Main = () => {
   };
 
   const onRadioChange = (event) => {
-    console.log(event.target.value);
     setWinningType(event.target.value);
   };
 
@@ -136,6 +112,7 @@ const Main = () => {
         {parametersList?.map((parameter) => {
           return (
             <ValueCard
+              key={parameter.label}
               parameter={parameter}
               onValueChange={onValueChange}
               onDecrease={onIncreaseOrDecrease}

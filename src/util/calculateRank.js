@@ -1,32 +1,32 @@
-export const calculateRank = ({
-  turns,
-  effectiveAttacks,
-  defensiveVictories,
-  faceDownPlays,
-  fusions,
-  equips,
-  pureMagics,
-  triggeredTraps,
-  usedCards,
-  remainingLPs,
-  winningType,
-}) => {
+import { PARAMETER_ORDER } from "../constants/parameterOrder";
+
+export const calculateRank = (parameters, winningType) => {
   const BASE_POINTS = 50;
 
-  return (
+  const formattedParams = {};
+
+  for (let i = 0; i < PARAMETER_ORDER.length; i++) {
+    formattedParams[PARAMETER_ORDER[i]] = parameters[i].value;
+  }
+
+  const points =
     BASE_POINTS +
-    turnPoints(turns) +
-    effectiveAttackPoints(effectiveAttacks) +
-    defensiveVictoryPoints(defensiveVictories) +
-    faceDownPlaysPoints(faceDownPlays) +
-    fusionPoints(fusions) +
-    equipPoints(equips) +
-    pureMagicPoints(pureMagics) +
-    triggeredTrapPoints(triggeredTraps) +
-    usedCardPoints(usedCards) +
-    remainingLPPoints(remainingLPs) +
-    winningTypePoints(winningType)
-  );
+    turnPoints(formattedParams["turns"]) +
+    effectiveAttackPoints(formattedParams["effectiveAttacks"]) +
+    defensiveVictoryPoints(formattedParams["defensiveVictories"]) +
+    faceDownPlaysPoints(formattedParams["faceDownPlays"]) +
+    fusionPoints(formattedParams["fusions"]) +
+    equipPoints(formattedParams["equips"]) +
+    pureMagicPoints(formattedParams["pureMagics"]) +
+    triggeredTrapPoints(formattedParams["triggeredTraps"]) +
+    usedCardPoints(formattedParams["usedCards"]) +
+    remainingLPPoints(formattedParams["remainingLPs"]) +
+    winningTypePoints(winningType);
+
+  return {
+    points,
+    grade: calculateGrade(points),
+  };
 };
 
 const turnPoints = (turns) => {
@@ -103,7 +103,13 @@ const remainingLPPoints = (remainingLPs) => {
 };
 
 const winningTypePoints = (winningType) => {
-  if(winningType === "annihilation") return 2;
-  if(winningType === "deck") return -40;
+  if (winningType === "annihilation") return 2;
+  if (winningType === "deck") return -40;
   return 40;
-}
+};
+
+const calculateGrade = (value) => {
+  if (value > 79) return "S - A Pow";
+  if (value > 19) return "B - C - D Pow/Tec";
+  return "S - A Tec";
+};
