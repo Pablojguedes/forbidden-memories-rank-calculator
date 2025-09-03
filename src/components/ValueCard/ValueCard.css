@@ -3,9 +3,9 @@ div#card-div {
   flex-direction: column;
   width: 100%;
   align-items: start;
-  padding: 0rem 0.25rem 0.25rem 0.25rem;
-  margin: 0rem 0rem 0.25rem 0;
   border: #0a0a0a 1px solid;
+  padding: 0rem 0.5rem 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 div#card-div:last-of-type {
@@ -23,21 +23,21 @@ div#tooltip-holder {
   position: relative;
 }
 
-div#tooltip-holder:hover span.tooltip-text{
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 1vw;
-    font-size: 0.7rem;
-    background-color: #f7f4de;
-    padding: 0.5em;
-    z-index: 1;
-    width: 15vw;
-    opacity: 100%;
-    border: 1px solid #d3a944;
+div#tooltip-holder:hover span.tooltip-text {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 1vw;
+  font-size: 0.7rem;
+  background-color: #f7f4de;
+  padding: 0.5em;
+  z-index: 1;
+  width: 15vw;
+  opacity: 100%;
+  border: 1px solid #d3a944;
 }
 
-span.tooltip-text{
+span.tooltip-text {
   display: none;
 }
 
@@ -46,6 +46,7 @@ h6#card-title {
   margin: 0 0 0.5rem 0;
   font-size: 0.75rem;
 }
+
 div#value-container-div {
   display: flex;
   width: 100%;
@@ -57,9 +58,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 2vw;
-  min-height: 2vw;
-  font-size: 0.75rem;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  font-size: 1rem;
   background-color: #cecece;
   cursor: pointer;
 }
@@ -77,3 +78,11 @@ h6#value-text {
 input#value-text {
   text-align: center;
 }
+
+@media (min-width: 600px) {
+  div#card-div {
+    padding: 0rem 0.25rem 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+}
+

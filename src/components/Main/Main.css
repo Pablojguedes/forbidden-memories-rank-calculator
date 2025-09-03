@@ -1,7 +1,7 @@
 div#main-div {
   background-image: url(../../assets/background.png);
   width: 100vw;
-  max-height: 100svh;
+  min-height: 100svh;
   background-size: 55%;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,6 @@ div#values-div {
   flex-direction: column;
   align-items: center;
   margin: auto 0;
-  width: 300px;
   padding: 0.65rem;
   border: 2px #df2a53 solid;
   border-radius: 1rem;
@@ -102,4 +101,10 @@ div#buttons-container {
 
 [type="button"]:hover {
   background-color: #f2f2f2;
+}
+
+@media (min-width: 600px) {
+  div#values-div {
+    min-width: 300px;
+  }
 }
