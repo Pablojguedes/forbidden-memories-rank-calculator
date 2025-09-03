@@ -103,7 +103,9 @@ const Main = () => {
           ))}
         </fieldset>
         <div id="rank-value-div">
-          <span>Pontos: {points}</span>
+          <span>
+            {englishMode ? "Points" : "Pontos:"} {points}
+          </span>
           <span>
             Rank:{" "}
             <span
